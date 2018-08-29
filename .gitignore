@@ -1,0 +1,4 @@
+build/raw-data/*
+node_modules/
+*.swp
+
