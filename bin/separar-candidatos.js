@@ -2,12 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const R = require('ramda');
 const debug = require('./utils/debug');
-const file = process.argv[2] || '';
-
-if (fs.existsSync(file) === false) {
-  console.error(`File ${file} does not exist! Exiting...`);
-  process.exit(1);
-}
 
 // Pure functions
 const transformRawDataIntoJson = buffer => JSON.parse(buffer);
@@ -88,6 +82,10 @@ const storeDeputiesExpenses = deputyExpensesMap => {
     )
   );
 };
+
+const files = R.range(2009, 2018).map((year) => path.resolve(path.dirname(__filename), '..', 'build', `Ano-${year}.json`));
+// Keep merging files...
+process.exit(0);
 
 // Processing file
 fetchFile(file)

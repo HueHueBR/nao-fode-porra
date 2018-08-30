@@ -2,7 +2,6 @@
 
 set -e
 
-
 # Generates CNAME file
 echo "naofodeporra.huehue.eu" > CNAME
 
@@ -16,17 +15,22 @@ cd build/
 # Download files to be processed
 mkdir -p raw-data/
 
-wget -q http://www.camara.leg.br/cotas/Ano-2017.json.zip -O raw-data/2017.zip
-
-# Unzip files to be processed
-unzip raw-data/*.zip
+FIRST_YEAR=2009
+LAST_YEAR=2018
+# ----> Parallel running syntax cmd1 & cmd2 & cmd..n & wait
+for i in `seq $FIRST_YEAR $LAST_YEAR`;
+do
+    echo "Getting $i..."
+    wget -q http://www.camara.leg.br/cotas/Ano-$i.json.zip -O raw-data/$i.zip
+    unzip raw-data/$i.zip
+done
 
 # Process files
 cd ../
 
-node bin/separar-candidatos.js build/Ano-2017.json
+node bin/separar-candidatos.js
 
 # Clean up
 rm -rf build/raw-data
-rm -rf build/Ano-20{0*,1*}.json
+# rm -rf build/Ano-20{0*,1*}.json
 
