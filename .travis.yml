@@ -1,0 +1,12 @@
+script:
+  - bash ./build.sh
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  verbose: true
+  on:
+    branch: master
+

@@ -2,13 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const R = require('ramda');
 const debug = require('./utils/debug');
-
-const DEBUG_MODE = true;
 const file = process.argv[2] || '';
 
 if (fs.existsSync(file) === false) {
   console.error(`File ${file} does not exist! Exiting...`);
-  process.exit(0);
+  process.exit(1);
 }
 
 // Pure functions
@@ -68,22 +66,27 @@ const storeDeputiesData = deputies => {
 };
 
 const storeDeputiesExpenses = deputyExpensesMap => {
-  const destination = path.resolve(path.dirname(__filename), '..', 'build', 'deputy-expenses.json');
+  return Promise.all(
+    Object.keys(deputyExpensesMap).map(
+      deputyId => {
+        const expenses = deputyExpensesMap[deputyId];
+        const json = JSON.stringify(expenses);
+        const destination = path.resolve(path.dirname(__filename), '..', 'build', `${deputyId}-expenses.json`);
 
-  return new Promise(resolve => {
-    debug('Saving expenses map...');
+        return new Promise(resolve => {
+          fs.writeFile(destination, json, (err) => {
+            if (err) {
+              debug(`Could not save data for deputy "${deputyId}": "${err}"`);
+              throw err;
+            }
 
-    const json = JSON.stringify(deputyExpensesMap);
-    fs.writeFile(destination, json, (err) => {
-      if (err) {
-        debug(`Could not save expenses map: "${err}".`);
-        throw err;
+            debug(`Deputy ${deputyId} expenses saved`);
+            resolve();
+          });
+        });
       }
-
-      debug('Expenses map saved!');
-      resolve();
-    });
-  });
+    )
+  );
 };
 
 // Processing file

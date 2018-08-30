@@ -1,6 +1,10 @@
 #!/bin/bash
 
 set -e
+
+# Install dependencies
+npm install
+
 if [ -d "build/" ]; then rm -Rf build/; fi
 mkdir build/
 cd build/
