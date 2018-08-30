@@ -2,13 +2,14 @@ const fs = require('fs');
 const path = require('path');
 const R = require('ramda');
 const debug = require('./utils/debug');
+const knexBuilder = require('knex');
 
 // Pure functions
 const transformRawDataIntoJson = buffer => JSON.parse(buffer);
 const extractExpensesFromJsonData = jsonData => jsonData.DESPESA;
 const sortExpensesByDate = expenses => R.sort(R.ascend(R.prop('datEmissao')), expenses);
 const groupExpensesByDeputyNumber = R.groupBy(expense => expense.nuDeputadoId);
-const extractDeputiesData = deputyExpensesMap => R.mapObjIndexed((expenses, deputyId) => {
+const extractDeputiesData = deputyExpensesMap => R.map(expense => expense, R.mapObjIndexed((expenses, deputyId) => {
   const l = R.last(expenses);
 
   return {
@@ -18,10 +19,52 @@ const extractDeputiesData = deputyExpensesMap => R.mapObjIndexed((expenses, depu
     party: l.sgPartido,
 
   };
-}, deputyExpensesMap);
+}, deputyExpensesMap));
 
 // Impure functions
-const fetchFile = (file) => {
+const createSchema = (knex) => {
+  return Promise.all([
+    knex.schema.createTable('deputies', table => {
+      table.string('id');
+      table.string('name');
+      table.string('wallet');
+      table.string('party');
+    }),
+    knex.schema.createTable('expenses', table => {
+      table.string('codLegislatura');
+      table.string('datEmissao');
+      table.string('ideDocumento');
+      table.string('idecadastro');
+      table.string('indTipoDocumento');
+      table.string('nuCarteiraParlamentar');
+      table.string('nuDeputadoId');
+      table.string('nuLegislatura');
+      table.string('numAno');
+      table.string('numEspecificacaoSubCota');
+      table.string('numLote');
+      table.string('numMes');
+      table.string('numParcela');
+      table.string('numRessarcimento');
+      table.string('numSubCota');
+      table.string('sgPartido');
+      table.string('sgUF');
+      table.string('txNomeParlamentar');
+      table.string('txtCNPJCPF');
+      table.string('txtDescricao');
+      table.string('txtDescricaoEspecificacao');
+      table.string('txtFornecedor');
+      table.string('txtNumero');
+      table.string('txtPassageiro');
+      table.string('txtTrecho');
+      table.string('vlrDocumento');
+      table.string('vlrGlosa');
+      table.string('vlrLiquido');
+      table.string('vlrRestituicao');
+    }),
+  ]);
+};
+
+async function fetchFile(file) {
   return new Promise((resolve, reject) => {
     debug(`Reading file "${file}"`);
 
@@ -40,68 +83,44 @@ const fetchFile = (file) => {
   });
 };
 
-const storeDeputiesData = deputies => {
-  const destination = path.resolve(path.dirname(__filename), '..', 'build', 'deputies.json');
-  
-  return new Promise(resolve => {
-    debug('Saving deputies data...');
+const storeDeputiesData = (knex, deputies) => knex.batchInsert(
+  'deputies',
+  Object.keys(deputies).map((key) => deputies[key]),
+  100
+);
 
-    const json = JSON.stringify(deputies);
-    fs.writeFile(destination, json, (err) => {
-      if (err) {
-        debug(`Could not save deputies data: "${err}".`);
-        throw err;
-      }
+const storeDeputiesExpenses = (knex, expenses) => knex.batchInsert('expenses', expenses, 30);
 
-      debug('Deputies data saved!');
-      resolve();
-    });
+const firstYear = 2009;
+const lastYear = 2018;
+
+async function processFile(year) {
+  const knex = knexBuilder({
+    client: 'sqlite3',
+    connection: {filename: `build/${year}.sqlite3`},
+    // useNullAsDefault: true,
   });
-};
 
-const storeDeputiesExpenses = deputyExpensesMap => {
-  return Promise.all(
-    Object.keys(deputyExpensesMap).map(
-      deputyId => {
-        const expenses = deputyExpensesMap[deputyId];
-        const json = JSON.stringify(expenses);
-        const destination = path.resolve(path.dirname(__filename), '..', 'build', `${deputyId}-expenses.json`);
+  await createSchema(knex);
 
-        return new Promise(resolve => {
-          fs.writeFile(destination, json, (err) => {
-            if (err) {
-              debug(`Could not save data for deputy "${deputyId}": "${err}"`);
-              throw err;
-            }
+  const file = path.resolve(path.dirname(__filename), '..', 'build', `Ano-${year}.json`);
+  const buffer = await fetchFile(file);
+  const expenses = R.pipe(
+    transformRawDataIntoJson,
+    extractExpensesFromJsonData
+  )(buffer);
 
-            debug(`Deputy ${deputyId} expenses saved`);
-            resolve();
-          });
-        });
+  storeDeputiesData(knex, extractDeputiesData(groupExpensesByDeputyNumber(expenses)))
+  .then(() => {
+    storeDeputiesExpenses(knex, expenses)
+    .then(() => {
+      processFile(year+1);
+
+      if (year === lastYear) {
+        process.exit(0);
       }
-    )
-  );
-};
+    })
+  })
+}
 
-const files = R.range(2009, 2018).map((year) => path.resolve(path.dirname(__filename), '..', 'build', `Ano-${year}.json`));
-// Keep merging files...
-process.exit(0);
-
-// Processing file
-fetchFile(file)
-  .then(
-    // { deputyId: expenses[] }
-    R.pipe(
-      transformRawDataIntoJson,
-      extractExpensesFromJsonData,
-      sortExpensesByDate,
-      groupExpensesByDeputyNumber,
-    )
-  )
-  .then(
-    deputyExpensesMap => Promise.all([
-      storeDeputiesData(extractDeputiesData(deputyExpensesMap)),
-      storeDeputiesExpenses(deputyExpensesMap),
-    ])
-  );
-
+processFile(firstYear);

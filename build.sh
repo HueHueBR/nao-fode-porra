@@ -32,5 +32,5 @@ node bin/separar-candidatos.js
 
 # Clean up
 rm -rf build/raw-data
-# rm -rf build/Ano-20{0*,1*}.json
+rm -rf build/Ano-20{0*,1*}.json
 
