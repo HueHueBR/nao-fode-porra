@@ -2,15 +2,16 @@
 
 set -e
 
+
+# Generates CNAME file
+echo "naofodeporra.huehue.eu" > CNAME
+
 # Install dependencies
 npm install
 
 if [ -d "build/" ]; then rm -Rf build/; fi
 mkdir build/
 cd build/
-
-# Generates CNAME file
-echo "naofodeporra.huehue.eu" > CNAME
 
 # Download files to be processed
 mkdir -p raw-data/
