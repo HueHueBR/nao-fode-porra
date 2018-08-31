@@ -9,27 +9,10 @@ const transformRawDataIntoJson = buffer => JSON.parse(buffer);
 const extractExpensesFromJsonData = jsonData => jsonData.DESPESA;
 const sortExpensesByDate = expenses => R.sort(R.ascend(R.prop('datEmissao')), expenses);
 const groupExpensesByDeputyNumber = R.groupBy(expense => expense.nuDeputadoId);
-const extractDeputiesData = deputyExpensesMap => R.map(expense => expense, R.mapObjIndexed((expenses, deputyId) => {
-  const l = R.last(expenses);
-
-  return {
-    id: l.nuDeputadoId,
-    name: l.txNomeParlamentar,
-    wallet: l.nuCarteiraParlamentar,
-    party: l.sgPartido,
-
-  };
-}, deputyExpensesMap));
 
 // Impure functions
 const createSchema = (knex) => {
   return Promise.all([
-    knex.schema.createTable('deputies', table => {
-      table.string('id');
-      table.string('name');
-      table.string('wallet');
-      table.string('party');
-    }),
     knex.schema.createTable('expenses', table => {
       table.string('codLegislatura');
       table.string('datEmissao');
@@ -110,17 +93,15 @@ async function processFile(year) {
     extractExpensesFromJsonData
   )(buffer);
 
-  storeDeputiesData(knex, extractDeputiesData(groupExpensesByDeputyNumber(expenses)))
+  storeDeputiesExpenses(knex, expenses)
   .then(() => {
-    storeDeputiesExpenses(knex, expenses)
-    .then(() => {
-      processFile(year+1);
+    processFile(year+1);
 
-      if (year === lastYear) {
-        process.exit(0);
-      }
-    })
+    if (year === lastYear) {
+      process.exit(0);
+    }
   })
 }
 
 processFile(firstYear);
+
