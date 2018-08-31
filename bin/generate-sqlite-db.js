@@ -90,6 +90,7 @@ async function main() {
   const knex = knexBuilder({
     client: 'sqlite3',
     connection: {filename: `build/${year}.sqlite3`},
+    useNullAsDefault: true,
   });
 
   await createSchema(knex);
