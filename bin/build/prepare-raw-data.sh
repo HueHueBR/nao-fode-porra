@@ -10,7 +10,7 @@ cd build/
 for year in `seq $FIRST_YEAR $LAST_YEAR`;
 do
   echo "Processing year $year"
-  wget http://www.camara.leg.br/cotas/Ano-$year.json.zip -O raw-data/$year.zip
+  wget -q http://www.camara.leg.br/cotas/Ano-$year.json.zip -O raw-data/$year.zip
   unzip raw-data/$year.zip
 done;
 
