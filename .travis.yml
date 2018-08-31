@@ -1,5 +1,9 @@
 script:
-  - bash ./build.sh
+  - bash bin/build/initialize.sh
+  - bash bin/build/prepare-raw-data.sh
+  - bash bin/build/generate-sqlite-bases.sh
+  - bash bin/build/clean.sh
+  - bash bin/build/compile-website.sh
 
 deploy:
   provider: pages
