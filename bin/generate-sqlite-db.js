@@ -47,7 +47,7 @@ const createSchema = (knex) => {
   ]);
 };
 
-async function fetchFile(file) {
+const fetchFile = (file) => {
   return new Promise((resolve, reject) => {
     debug(`Reading file "${file}"`);
 
@@ -74,14 +74,23 @@ const storeDeputiesData = (knex, deputies) => knex.batchInsert(
 
 const storeDeputiesExpenses = (knex, expenses) => knex.batchInsert('expenses', expenses, 30);
 
-const firstYear = 2009;
-const lastYear = 2018;
+const fetchYearNumberFromCLI = () => {
+  const year = process.argv[2];
 
-async function processFile(year) {
+  if (!year) {
+    console.error('Favor fornecer o ano base como argumento!');
+    process.exit(1);
+  }
+
+  return year;
+};
+
+async function main() {
+  const year = fetchYearNumberFromCLI();
   const knex = knexBuilder({
     client: 'sqlite3',
     connection: {filename: `build/${year}.sqlite3`},
-    // useNullAsDefault: true,
+    useNullAsDefault: true,
   });
 
   await createSchema(knex);
@@ -95,13 +104,9 @@ async function processFile(year) {
 
   storeDeputiesExpenses(knex, expenses)
   .then(() => {
-    processFile(year+1);
-
-    if (year === lastYear) {
       process.exit(0);
-    }
-  })
+  });
 }
 
-processFile(firstYear);
+main();
 
