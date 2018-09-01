@@ -8,6 +8,19 @@ const pug = {
   use: ['html-loader?attrs=false', 'pug-html-loader'],
 };
 
+const img = {
+  test: /\.(png|jpg|gif|svg)$/,
+  exclude: [
+    path.resolve(__dirname, '../node_modules'),
+  ],
+  use: {
+    loader: 'file-loader',
+    options: {
+      name: 'assets/[name].[ext]',
+    },
+  },
+};
+
 const sass = {
   test: /\.scss$/,
   use: [
@@ -27,7 +40,7 @@ module.exports = {
     path: path.resolve(__dirname, '..'),
   },
   module: {
-    rules: [pug, sass],
+    rules: [pug, sass, img],
   },
   plugins: [
     new webpack.ProgressPlugin(),
