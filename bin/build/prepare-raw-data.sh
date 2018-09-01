@@ -2,7 +2,7 @@
 
 set -e
 source .env_build
-if [ "$ENV" = "BUILD" ]; then source .env_dev; fi;
+if [ "$ENV" != "BUILD" ]; then source .env_dev; fi;
 
 echo 'Changing CWD to build/'
 cd build/
@@ -16,4 +16,3 @@ done;
 
 echo 'Changing CWD to root path'
 cd ../
-
