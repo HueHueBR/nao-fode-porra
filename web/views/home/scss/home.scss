@@ -7,6 +7,7 @@
 }
 
 body {
+  text-shadow: -2px 2px 22px #222;
   background: $background-color url(~/assets/middle-finger.png) no-repeat;
   background-position: center 12em;
   background-size: contain;
@@ -46,6 +47,7 @@ body {
     border: 0;
     color: $text-color;
     font-size: 2rem;
+    text-shadow: -2px 2px 22px #222;
   }
 
   &__arrow {
@@ -63,6 +65,7 @@ body {
       transform: rotate(45deg);
       position: relative;
       top: -0.7em;
+      box-shadow: 1px 1px 5px #777;
     }
   }
 }
