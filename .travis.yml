@@ -2,6 +2,8 @@ script:
   - bash bin/build/initialize.sh
   - bash bin/build/prepare-raw-data.sh
   - bash bin/build/generate-sqlite-bases.sh
+  - bash bin/build/join-all-sqlite-bases.sh
+  - bash bin/build/extract-deputies.sh
   - bash bin/build/clean.sh
   - bash bin/build/compile-website.sh
 
