@@ -1,7 +1,11 @@
 extends ../layout.pug
 
+block scripts
+  script(type='text/javascript', src='js/home.js')
+
 block head
   title Não fode, porra!
+  link(rel='stylesheet', href='css/home.css')
 
 block header
   include header.pug
