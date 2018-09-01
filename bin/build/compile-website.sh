@@ -6,5 +6,5 @@ echo 'Building up website...';
 echo "naofodeporra.huehue.eu" > CNAME
 
 # Generating home-page
-bash web/generate-dummy-index-html.sh
+npm run build
 

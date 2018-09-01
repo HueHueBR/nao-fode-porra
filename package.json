@@ -1,7 +1,17 @@
 {
+  "scripts": {
+    "build": "webpack --mode production --config web/webpack.config.js"
+  },
   "dependencies": {
+    "clean-webpack-plugin": "^0.1.19",
+    "file-loader": "^2.0.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
     "knex": "^0.15.2",
+    "pug-html-loader": "^1.1.5",
     "ramda": "^0.25.0",
-    "sqlite3": "^4.0.2"
+    "sqlite3": "^4.0.2",
+    "webpack": "^4.17.1",
+    "webpack-cli": "^3.1.0"
   }
 }
