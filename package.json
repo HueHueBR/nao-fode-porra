@@ -1,7 +1,29 @@
 {
+  "scripts": {
+    "clean": "rm -rf *.html css/ js/ assets/",
+    "build": "npm run clean && webpack --config web/webpack.prod.config.js",
+    "dev": "webpack-dev-server --config web/webpack.dev.config.js"
+  },
   "dependencies": {
+    "clean-webpack-plugin": "^0.1.19",
+    "css-loader": "^1.0.0",
+    "file-loader": "^2.0.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "image-webpack-loader": "^4.3.1",
     "knex": "^0.15.2",
+    "mini-css-extract-plugin": "^0.4.2",
+    "node-sass": "^4.9.3",
+    "pug-html-loader": "^1.1.5",
     "ramda": "^0.25.0",
-    "sqlite3": "^4.0.2"
+    "sass-loader": "^7.1.0",
+    "sqlite3": "^4.0.2",
+    "style-loader": "^0.23.0",
+    "url-loader": "^1.1.1",
+    "webpack": "^4.17.1",
+    "webpack-cli": "^3.1.0"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^3.1.7"
   }
 }

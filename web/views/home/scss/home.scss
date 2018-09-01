@@ -1,0 +1,68 @@
+@import '../../../scss/_reset.scss';
+@import '../../../scss/_colors.scss';
+
+@keyframes jump {
+  0% {transform: translate3d(0,0,0) scale3d(1,1,1);}
+  100% {transform: translate3d(0,10%,0) scale3d(1.2,1,1);}
+}
+
+body {
+  background: $background-color url(~/assets/middle-finger.png) no-repeat;
+  background-position: center 12em;
+  background-size: contain;
+  background-attachment: fixed;
+  box-sizing: border-box;
+  font-size: 12px;
+  color: $text-color;
+}
+
+.heading-title {
+  position: absolute;
+  top: 10%;
+  width: 100%;
+  word-wrap: break-word;
+  font-size: 5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.content {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  padding: 2rem 0;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.cta {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+
+  &__button {
+    background-color: transparent;
+    border: 0;
+    color: $text-color;
+    font-size: 2rem;
+  }
+
+  &__arrow {
+    display: block;
+    overflow: hidden;
+    margin-top: 1rem;
+    animation: jump .7s linear alternate infinite;
+
+    &--down:after {
+      content: ' ';
+      display: inline-block;
+      width: 2rem;
+      height: 2rem;
+      border: 0.3rem solid $text-color;
+      transform: rotate(45deg);
+      position: relative;
+      top: -0.7em;
+    }
+  }
+}
