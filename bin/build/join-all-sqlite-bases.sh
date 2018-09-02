@@ -37,7 +37,7 @@ SQL="CREATE TABLE 'expenses' (\
   'vlrRestituicao' varchar(255)\
 );"
 
-sqlite3 ./build/raw.sqlite3 "$SQL"
+sqlite3 ./build/raw.db "$SQL"
 
 SQL=''
 for i in `seq $FIRST_YEAR $LAST_YEAR`; do

@@ -4,7 +4,7 @@ set -e
 source .env_build
 if [ "$ENV" != "BUILD" ]; then source .env_dev; fi;
 
-ATTACH="attach './build/raw.sqlite3' as raw;"
+ATTACH="attach './build/raw.db' as raw;"
 
 CREATE_TABLE="CREATE TABLE deputies(\
   'id' INTEGER PRIMARY KEY,\
