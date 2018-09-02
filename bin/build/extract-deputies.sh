@@ -4,7 +4,7 @@ set -e
 source .env_build
 if [ "$ENV" != "BUILD" ]; then source .env_dev; fi;
 
-ATTACH="attach './build/raw.sqlite3' as raw;"
+ATTACH="attach './build/raw.db' as raw;"
 
 CREATE_TABLE="CREATE TABLE deputies(\
   'id' INTEGER PRIMARY KEY,\
@@ -20,5 +20,4 @@ SELECT="select distinct\
 
 INSERT="INSERT INTO deputies $SELECT;"
 
-sqlite3 ./build/derived.sqlite3 "$ATTACH $CREATE_TABLE $INSERT"
-
+sqlite3 ./build/derived.db "$ATTACH $CREATE_TABLE $INSERT"
