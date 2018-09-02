@@ -1,5 +1,8 @@
 extends ../layout.pug
 
+block data
+  script(type='text/javascript', src='data/home.data.js')
+
 block scripts
   script(type='text/javascript', src='js/home.js')
 
@@ -8,6 +11,7 @@ block head
   link(rel='stylesheet', href='css/home.css')
 
 block content
+  include header.pug
   article
     h1.heading-title Não fode, porra!
     p.content Ferramenta de controle social, pra gente acabar de vez com essa baderna!
