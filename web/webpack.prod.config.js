@@ -1,57 +1,43 @@
-const path = require('path');
+const { resolve } = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { dataInjector, dataLoader } = require('./utils/custom-loaders');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const pug = {
-  test: /\.pug$/,
-  use: ['html-loader?attrs=false', 'pug-html-loader'],
-};
-
-const img = {
-  test: /\.(png|jpg|gif|svg)$/,
-  exclude: [
-    path.resolve(__dirname, '../node_modules'),
-  ],
-  use: {
-    loader: 'file-loader',
-    options: {
-      name: 'assets/[name].[ext]',
-    },
-  },
-};
-
-const sass = {
-  test: /\.scss$/,
+const html = {
+  test: /\.html$/,
   use: [
-    MiniCssExtractPlugin.loader,
-    'css-loader',
-    'sass-loader',
+    { loader: 'file-loader', options: { name: '[name].html' } },
+    'extract-loader',
+    'html-loader',
+    { loader: 'data-injector' },
+    { loader: 'data-loader', options: { resolversPath: resolve(__dirname, 'resolvers') } },
   ],
+};
+
+const css = {
+  test: /\.scss$/,
+  use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
 };
 
 module.exports = {
   mode: 'production',
+  resolveLoader: {
+    alias: {
+      'data-loader': dataLoader,
+      'data-injector': dataInjector,
+    },
+  },
   entry: {
-    home: path.resolve(__dirname, 'src/home.js'),
+    home: resolve(__dirname, 'src/home.js'),
   },
   output: {
     filename: 'js/[name].js',
-    path: path.resolve(__dirname, '..'),
+    path: resolve(__dirname, '../'),
   },
   module: {
-    rules: [pug, sass, img],
+    rules: [html, css],
   },
   plugins: [
-    new webpack.ProgressPlugin(),
-    new HtmlWebpackPlugin({
-      inject: false,
-      test: /\.pug$/,
-      template: path.resolve(__dirname, 'views/home/index.pug'),
-    }),
-    new MiniCssExtractPlugin({
-      filename: 'css/[name].css',
-      chunckFilename: 'css/[id].css',
-    }),
+    new MiniCssExtractPlugin({ filename: 'css/[name].css' })
   ],
 };

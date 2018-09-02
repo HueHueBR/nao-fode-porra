@@ -1,7 +1,5 @@
-@import '../../../scss/_reset.scss';
-@import '../../../scss/_colors.scss';
-
-@import 'header.scss';
+@import '_colors.scss';
+@import './home/header.scss';
 
 @keyframes jump {
   0% {transform: translate3d(0,0,0) scale3d(1,1,1);}
@@ -10,7 +8,7 @@
 
 body {
   text-shadow: -2px 2px 22px #222;
-  background: $background-color url(~/assets/middle-finger.png) no-repeat;
+  background: $background-color url(/assets/middle-finger.png) no-repeat;
   background-position: center 12em;
   background-size: contain;
   background-attachment: fixed;
