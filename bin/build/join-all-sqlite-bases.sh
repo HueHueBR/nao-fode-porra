@@ -54,5 +54,4 @@ done
 
 SQL="$SQL INSERT INTO expenses $SELECT"
 
-sqlite3 ./build/raw.sqlite3 "$SQL"
-
+sqlite3 ./build/raw.db "$SQL"

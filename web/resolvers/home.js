@@ -14,16 +14,16 @@ numeral.register('locale', 'br', {
 
 numeral.locale('br');
 
-const knex = require('knex')({
-  client: 'sqlite3',
-  connection: {filename: path.resolve(__dirname, '../../build/raw.sqlite3')},
-  useNullAsDefault: true,
-});
-
 const currentYear = (new Date()).getFullYear().toString();
 
 module.exports = {
   resolve() {
+    const knex = require('knex')({
+      client: 'sqlite3',
+      connection: {filename: path.resolve(__dirname, '../../build/raw.db')},
+      useNullAsDefault: true,
+    });
+
     return new Promise(resolve => {
       knex.first(
         knex.raw('SUM(ABS(vlrLiquido)) as totalSpent')
@@ -32,9 +32,7 @@ module.exports = {
       .where(knex.raw("strftime('%Y', datEmissao)"), currentYear)
       .then(result => {
         result.totalSpent = numeral(result.totalSpent).format('$0,0.00');
-        knex.destroy();
-
-        resolve(result);
+        knex.destroy(() => resolve(result));
       });
     });
   }

@@ -10,8 +10,9 @@ const resolveData = (resolverName, options) => {
 };
 
 const apply = (source, options) => {
-  const $ = cheerio.load(source);
+  const $ = cheerio.load(source, { decodeEntities: false });
   const resolverPlaceholder = $('[data-resolver]');
+  resolverPlaceholder.remove();
 
   return new Promise(resolve => {
     if (resolverPlaceholder.length === 0) {
@@ -27,7 +28,7 @@ const apply = (source, options) => {
     )
     .then(data => {
       return resolve({
-        template: source,
+        template: $.html(),
         data: data,
       });
     });

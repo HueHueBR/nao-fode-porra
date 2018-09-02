@@ -20,5 +20,4 @@ SELECT="select distinct\
 
 INSERT="INSERT INTO deputies $SELECT;"
 
-sqlite3 ./build/derived.sqlite3 "$ATTACH $CREATE_TABLE $INSERT"
-
+sqlite3 ./build/derived.db "$ATTACH $CREATE_TABLE $INSERT"
