@@ -1,3 +1,5 @@
+[Read in Brazilian Portuguese](https://github.com/HueHueBR/nao-fode-porra/blob/master/README.md)
+
 # Não fode, porra!
 
 `Não fode, porra!` is a very cool project with on simple goal: to present in a simple, direct and bluntly data provided by [the Brazilian transparency portal of the Chamber of Deputies](http://www.camara.gov.br/cota-parlamentar/).
@@ -19,6 +21,11 @@ Everyone. Nobody.
 
 All website's infrastructure is 100% cost-free. Our web server is offered by [Github Pages](https://pages.github.com/) and all data extraction happens through [Travis CI](https://travis-ci.org/), both platforms offer cost-free services with which we are being able to develop the whole project.
 
+
 --------------
 
 **More information soon to be added...**
+
+**Side note:**
+
+`Não fode, porra!` can be translated to something like `Don't fucking fuck!`. But of course the actual meaning may vary from each situation.
