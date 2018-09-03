@@ -1,3 +1,5 @@
+[Read in English](https://github.com/HueHueBR/nao-fode-porra/blob/master/README.en.md)
+
 # Não fode, porra!
 
 `Não fode, porra!` é um projeto muito massa com um simples intuito: apresentar de forma simples, direta e contundente dados provindos do [portal brasileiro de transparência da câmara dos deputados](http://www.camara.gov.br/cota-parlamentar/).
