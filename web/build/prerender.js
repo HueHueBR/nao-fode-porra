@@ -1,11 +1,11 @@
 const vuePrerender = require('vue-prerender');
 
-vuePrerender('dist', {
+vuePrerender('web/dist', {
   logLevel: 3,
   parseRouter: true,
   tidy: true,
   routerParams: {
     // @todo Inject IDs
-    id: [1, 2],
+    deputyId: [1, 2],
   },
 });

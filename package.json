@@ -6,7 +6,7 @@
     "start": "npm run dev",
     "lint": "eslint --ext .js,.vue web/src",
     "build": "node web/build/build.js",
-    "prerender": "npm run build && node web/build/prerender.js"
+    "prerender": "npm run build && node web/build/prerender.js && mv web/dist/* ./"
   },
   "dependencies": {
     "knex": "^0.15.2",

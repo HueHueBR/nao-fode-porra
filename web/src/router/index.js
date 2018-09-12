@@ -6,6 +6,7 @@ import Deputy from '@/components/Deputy/Index';
 Vue.use(Router);
 
 const routerConfig = {
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -19,9 +20,5 @@ const routerConfig = {
     },
   ],
 };
-
-if (process.env.NODE_ENV === 'development') {
-  routerConfig.mode = 'history';
-}
 
 export default new Router(routerConfig);
