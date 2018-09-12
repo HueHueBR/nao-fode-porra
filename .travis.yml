@@ -5,7 +5,7 @@ script:
   - bash bin/build/join-all-sqlite-bases.sh
   - bash bin/build/extract-deputies.sh
   - bash bin/build/clean.sh
-  - bash bin/build/compile-website.sh
+  - npm run prerender
   - rm -rf build/*.db
 
 deploy:
