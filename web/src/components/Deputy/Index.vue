@@ -27,7 +27,6 @@ export default {
 
 <template lang="html">
   <h1>
-    Deputy #{{id}}
-    {{msg}}
+    TBD
   </h1>
 </template>
