@@ -14,4 +14,5 @@ const app = new Vue({
   template: '<App/>',
 });
 
+// eslint-disable-next-line
 window._vuePrerender = app;

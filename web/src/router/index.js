@@ -5,8 +5,7 @@ import Deputy from '@/components/Deputy/Index';
 
 Vue.use(Router);
 
-export default new Router({
-  mode: 'history',
+const routerConfig = {
   routes: [
     {
       path: '/',
@@ -14,9 +13,15 @@ export default new Router({
       component: Home,
     },
     {
-      path: '/deputy/:id',
+      path: '/deputado/:deputyId',
       name: 'Deputy',
       component: Deputy,
     },
   ],
-});
+};
+
+if (process.env.NODE_ENV === 'development') {
+  routerConfig.mode = 'history';
+}
+
+export default new Router(routerConfig);

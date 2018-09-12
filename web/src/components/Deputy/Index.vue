@@ -5,12 +5,12 @@ export default {
   name: 'Index',
   mounted() {
     axios
-    .get('/static/deputy/:id.json'.replace(':id', this.$route.params.id))
-    .then((result) => {
-      this.$nextTick(() => {
-        this.msg = result.data.msg;
+      .get('/static/deputy/:id.json'.replace(':id', this.$route.params.deputyId))
+      .then((result) => {
+        this.$nextTick(() => {
+          this.msg = result.data.msg;
+        });
       });
-    });
   },
   data() {
     return {
