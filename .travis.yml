@@ -1,6 +1,7 @@
 script:
-  - bin/build/data-analysis.sh
-  - bin/build/website.sh
+  - bin/fetch-raw-data.sh
+  # - bin/build-data-analysis.sh
+  # - bin/build-website.sh
 
 deploy:
   provider: pages
