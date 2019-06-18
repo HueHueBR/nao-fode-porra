@@ -1,5 +1,5 @@
 script:
-  - bin/fetch-raw-data.sh
+  - bash bin/fetch-raw-data.sh
   # - bin/build-data-analysis.sh
   # - bin/build-website.sh
 
