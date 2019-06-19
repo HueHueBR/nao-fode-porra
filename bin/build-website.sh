@@ -11,3 +11,5 @@ composer install
 yarn install
 
 yarn run $JIGSAW_ENV
+
+echo $CNAME > build_$JIGSAW_ENV/CNAME
