@@ -1,0 +1,16 @@
+{
+    "name": "huehuebr/nao-fode-porra",
+    "description": "Projeto muito massa para apresentar de forma simples, direta e contundente dados provindos do portal brasileiro de transparência da câmara dos deputados.",
+    "type": "project",
+    "require": {
+        "tightenco/jigsaw": "^1.3"
+    },
+    "license": "GPL-3",
+    "authors": [
+        {
+            "name": "HuehueBR",
+            "email": "aquiehbrporra@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
