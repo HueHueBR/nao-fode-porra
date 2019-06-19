@@ -1,16 +1,18 @@
-language: php
-php:
-  - 7.3
-python:
-  - 3.7.2
+matrix:
+  include:
+    - language: python
+      python:
+        - 3.7.2
+      install:
+        - pip install -r scripts/requirements.txt
+      script:
+        - python scripts/test-pandas.py
 
-install:
-  - pip install --user --upgrade pip
-  - python --version
-  - pip install -r scripts/requirements.txt
-
-script:
-  - python scripts/test-pandas.py
+    - language: php
+      php:
+        - 7.3
+      script:
+        - bin/build-website.sh
 
 deploy:
   provider: pages
