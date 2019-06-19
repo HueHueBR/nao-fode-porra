@@ -5,7 +5,7 @@ python:
   - 3.7.2
 
 install:
-  - pip install --upgrade pip
+  - pip install --user --upgrade pip
   - python --version
   - pip install -r scripts/requirements.txt
 
