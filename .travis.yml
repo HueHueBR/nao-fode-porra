@@ -10,7 +10,7 @@ jobs:
       install:
         - pip install -r scripts/requirements.txt
       script:
-        - python scripts/test-pandas.py
+        - python scripts/test-pandas.py > build/output.txt
 
     - stage: build_website
       language: php
@@ -18,6 +18,7 @@ jobs:
         - 7.3
       script:
         - bin/build-website.sh
+        - cat build/output.txt
 
     - stage: deploy
       deploy:
