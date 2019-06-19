@@ -1,9 +1,10 @@
 jobs:
   include:
     - stage: analyze_data
+      dist: xenial
       language: python
       python:
-        - 3.7
+        - 3.7.2
       cache:
         - pip
       install:
