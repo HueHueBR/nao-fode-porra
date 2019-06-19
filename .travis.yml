@@ -3,7 +3,7 @@ php:
   - 7.3
 
 script:
-  - bash bin/fetch-raw-data.sh
+  - bin/fetch-raw-data.sh
   - bin/build-data-analysis.sh
   - bin/build-website.sh
 
