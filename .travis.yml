@@ -1,27 +1,38 @@
-matrix:
+jobs:
   include:
-    - language: python
+    - stage: analyze_data
+      language: python
       python:
-        - 3.7.2
+        - 3.7
+      cache:
+        - pip
       install:
         - pip install -r scripts/requirements.txt
       script:
         - python scripts/test-pandas.py
 
-    - language: php
+    - stage: build_website
+      language: php
       php:
         - 7.3
       script:
         - bin/build-website.sh
 
-deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN
-  keep-history: true
-  verbose: true
-  local_dir: site/build_production/
-  env:
-    - ENV=BUILD
-  on:
-    branch: master
+    - stage: deploy
+      deploy:
+        provider: pages
+        skip-cleanup: true
+        github-token: $GITHUB_TOKEN
+        keep-history: true
+        verbose: true
+        local_dir: site/build_production/
+        env:
+          - ENV=BUILD
+        on:
+          branch: master
+
+stages:
+  - analyze_data
+  - build_website
+  - name: deploy
+    if: branch = master
