@@ -11,6 +11,3 @@ composer install
 yarn install
 
 yarn run $JIGSAW_ENV
-
-# Moves build results to docs/ so it gets presented on Github Pages
-mv build_$JIGSAW_ENV/* ../docs/
