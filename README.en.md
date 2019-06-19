@@ -1,5 +1,7 @@
 [Read in Brazilian Portuguese](https://github.com/HueHueBR/nao-fode-porra/blob/master/README.md)
 
+[![Build Status](https://travis-ci.org/HueHueBR/nao-fode-porra.svg?branch=master)](https://travis-ci.org/HueHueBR/nao-fode-porra)
+
 # Não fode, porra!
 
 `Não fode, porra!` is a very cool project with on simple goal: to present in a simple, direct and bluntly data provided by [the Brazilian transparency portal of the Chamber of Deputies](http://www.camara.gov.br/cota-parlamentar/).
