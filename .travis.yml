@@ -1,5 +1,5 @@
-global:
-  env:
+env:
+  global:
     - DATA_ARCHIVE=data.tar.gz
     - ARCHIVE_ID=$TRAVIS_BUILD_NUMBER
 jobs:
