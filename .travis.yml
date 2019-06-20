@@ -15,6 +15,7 @@ jobs:
         - pip install -r scripts/requirements.txt
         - mkdir -p build/data
       script:
+        - bin/fetch-raw-data.sh
         - bin/build-data-analysis.sh
         - tar -czvf build/$DATA_ARCHIVE build/data/*
         - bin/upload-build-archive.sh build/$DATA_ARCHIVE $ARCHIVE_ID
