@@ -34,7 +34,6 @@ jobs:
         - bin/build-website.sh
 
       deploy:
-        if: branch = master
         provider: pages
         skip-cleanup: true
         github-token: $GITHUB_TOKEN
@@ -44,7 +43,7 @@ jobs:
         env:
           - ENV=BUILD
         on:
-          branch: master
+          branch: test_python_env
 
 stages:
   - analyze_data
