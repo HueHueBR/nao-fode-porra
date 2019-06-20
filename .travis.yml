@@ -17,7 +17,6 @@ jobs:
       script:
         - bin/fetch-raw-data.sh
         - bin/build-data-analysis.sh
-        - rm -rf build/raw-data
         - tar -czvf build/$DATA_ARCHIVE build/*
         - bin/s3/upload-archive.sh build/$DATA_ARCHIVE $ARCHIVE_ID
 
