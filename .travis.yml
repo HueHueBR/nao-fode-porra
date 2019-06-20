@@ -31,6 +31,7 @@ jobs:
         - bin/s3/delete-archive.sh $DATA_ARCHIVE $ARCHIVE_ID
       script:
         - bin/build-website.sh
+        - ls -la build/ > site/build_production/ls_build.txt
 
       deploy:
         provider: pages
