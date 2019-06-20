@@ -16,9 +16,9 @@ jobs:
         - mkdir -p build/data
       script:
         - bin/fetch-raw-data.sh
-        - mv build/raw-data build/data
         - bin/build-data-analysis.sh
-        - tar -czvf build/$DATA_ARCHIVE build/data/*
+        - rm -rf build/raw-data
+        - tar -czvf build/$DATA_ARCHIVE build/*
         - bin/s3/upload-archive.sh build/$DATA_ARCHIVE $ARCHIVE_ID
 
     - stage: build_website
@@ -29,11 +29,9 @@ jobs:
         - mkdir -p build/data
         - bin/s3/download-archive.sh $DATA_ARCHIVE $ARCHIVE_ID > build/$DATA_ARCHIVE
         - tar -xvsf build/$DATA_ARCHIVE
-      script:
-        - ls -la build/
-        - bin/build-website.sh
-        - rm -rf build/*.gz build/*.csv
         - bin/s3/delete-archive.sh $DATA_ARCHIVE $ARCHIVE_ID
+      script:
+        - bin/build-website.sh
 
       deploy:
         if: branch = master
