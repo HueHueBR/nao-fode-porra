@@ -43,7 +43,7 @@ jobs:
         env:
           - ENV=BUILD
         on:
-          branch: test_python_env
+          branch: master
 
 stages:
   - analyze_data
