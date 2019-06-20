@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-echo "[Data Analysis] inserir script the build aqui..."
+python scripts/totais-por-ano.py
