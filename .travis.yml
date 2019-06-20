@@ -1,3 +1,7 @@
+global:
+  env:
+    - DATA_ARCHIVE=data.tar.gz
+    - ARCHIVE_ID=$TRAVIS_BUILD_NUMBER
 jobs:
   include:
     - stage: analyze_data
@@ -9,19 +13,27 @@ jobs:
         - pip
       install:
         - pip install -r scripts/requirements.txt
+        - mkdir -p build/data
       script:
-        - python scripts/test-pandas.py > build/output.txt
+        - bin/build-data-analysis.sh
+        - tar -czvf build/$DATA_ARCHIVE build/data/*
+        - bin/upload-build-archive.sh build/$DATA_ARCHIVE $ARCHIVE_ID
 
     - stage: build_website
       language: php
       php:
         - 7.3
+      install:
+        - bin/s3/download-archive.sh $DATA_ARCHIVE $ARCHIVE_ID > build/$DATA_ARCHIVE
+        - cd build/ && tar -xvsf $DATA_ARCHIVE
       script:
+        - ls -la build/
         - bin/build-website.sh
-        - cat build/output.txt
+        - rm -rf build/*.gz build/*.csv
+        - bin/s3/delete-archive.sh $DATA_ARCHIVE $ARCHIVE_ID
 
-    - stage: deploy
       deploy:
+        if: branch = master
         provider: pages
         skip-cleanup: true
         github-token: $GITHUB_TOKEN
@@ -36,5 +48,3 @@ jobs:
 stages:
   - analyze_data
   - build_website
-  - name: deploy
-    if: branch = master
