@@ -28,7 +28,7 @@ jobs:
       install:
         - mkdir -p build/data
         - bin/s3/download-archive.sh $DATA_ARCHIVE $ARCHIVE_ID > build/$DATA_ARCHIVE
-        - cd build/ && tar -xvsf $DATA_ARCHIVE && cd ..
+        - tar -xvsf build/$DATA_ARCHIVE
       script:
         - ls -la build/
         - bin/build-website.sh
