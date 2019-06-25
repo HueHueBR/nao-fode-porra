@@ -1,6 +1,7 @@
 [Read in English](https://github.com/HueHueBR/nao-fode-porra/blob/master/README.en.md)
 
 [![Build Status](https://travis-ci.org/HueHueBR/nao-fode-porra.svg?branch=master)](https://travis-ci.org/HueHueBR/nao-fode-porra)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/HueHueBR/jupyter-playground/master)
 
 # Não fode, porra!
 
