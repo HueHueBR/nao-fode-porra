@@ -12,8 +12,9 @@ if [ -z "$DATE" ]; then
 fi;
 
 S3_BUCKET=$BUILD_S3_UPLOAD_BUCKET
-URL=$S3_REST_BASE_URL/$S3_BUCKET/archive_$DATE\_$(basename $ARCHIVE)
 
-curl $URL \
-  --upload-file $ARCHIVE \
+URL=$S3_REST_BASE_URL/$S3_BUCKET/archive_"$DATE"_$(basename "$ARCHIVE")
+
+curl "$URL" \
+  --upload-file "$ARCHIVE" \
   --header "authorization: LOW $S3_ACCESS_KEY:$S3_SECRET_KEY"

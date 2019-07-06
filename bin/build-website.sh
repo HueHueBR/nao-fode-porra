@@ -10,6 +10,6 @@ cd site/
 composer install
 yarn install
 
-yarn run $JIGSAW_ENV
+yarn run "$JIGSAW_ENV"
 
-echo $CNAME > build_$JIGSAW_ENV/CNAME
+echo "$CNAME" > build_"$JIGSAW_ENV"/CNAME

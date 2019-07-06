@@ -14,6 +14,6 @@ fi;
 S3_BUCKET=$BUILD_S3_UPLOAD_BUCKET
 URL=$S3_REST_BASE_URL/$S3_BUCKET/archive_$DATE\_$ARCHIVE
 
-curl -L $URL \
+curl -L "$URL" \
   -X DELETE \
   --header "authorization: LOW $S3_ACCESS_KEY:$S3_SECRET_KEY"
