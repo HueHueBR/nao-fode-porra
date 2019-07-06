@@ -1,12 +1,14 @@
 import pandas as pd
 import glob
-import os.path as path
+from os import path
+
+dir = path.realpath(path.dirname(__file__))
 
 # DataFrame vazio para iniciar
 df = pd.DataFrame({'numAno': [], 'vlrLiquido': []})
 
 # Lê todos os arquivos csv baixados
-files = glob.glob('build/raw-data/*.csv')
+files = glob.glob(path.join(dir, '../build/raw-data/*.csv'))
 for file in files:
     df = df.append(pd.read_csv(file, sep=';')[['numAno', 'vlrLiquido']])
 
@@ -20,4 +22,4 @@ groupedYearlyValues.index = groupedYearlyValues.index.astype('int64')
 groupedYearlyValues = groupedYearlyValues.astype('int64')
 
 # Gravando saída
-groupedYearlyValues.to_csv('build/data/total-por-ano.csv', sep=';')
+groupedYearlyValues.to_csv(path.join(dir, '../build/data/total-por-ano.csv'), sep=';')
