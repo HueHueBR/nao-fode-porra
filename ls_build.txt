@@ -1,5 +1,5 @@
 total 6696
-drwxrwxr-x 3 travis travis    4096 Sep  6 23:25 .
-drwxrwxr-x 7 travis travis    4096 Sep  6 23:25 ..
-drwxrwxr-x 2 travis travis    4096 Sep  6 23:24 data
--rw-rw-r-- 1 travis travis 6844311 Sep  6 23:25 data.tar.gz
+drwxrwxr-x 3 travis travis    4096 Sep  7 23:25 .
+drwxrwxr-x 7 travis travis    4096 Sep  7 23:25 ..
+drwxrwxr-x 2 travis travis    4096 Sep  7 23:24 data
+-rw-rw-r-- 1 travis travis 6844315 Sep  7 23:25 data.tar.gz
