@@ -1,5 +1,5 @@
 total 4920
-drwxrwxr-x 3 travis travis    4096 Jul 10 02:00 .
-drwxrwxr-x 7 travis travis    4096 Jul 10 02:00 ..
-drwxrwxr-x 2 travis travis    4096 Jul 10 01:59 data
--rw-rw-r-- 1 travis travis 5025203 Jul 10 02:00 data.tar.gz
+drwxrwxr-x 3 travis travis    4096 Jul 11 02:00 .
+drwxrwxr-x 7 travis travis    4096 Jul 11 02:00 ..
+drwxrwxr-x 2 travis travis    4096 Jul 11 01:59 data
+-rw-rw-r-- 1 travis travis 5025202 Jul 11 02:00 data.tar.gz
